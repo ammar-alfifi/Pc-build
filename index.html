@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pc builder</title>
+    <style>
+                .result-container {
+            display: flex;
+            flex-direction: column;
+        }
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #ddd;
+            padding: 5px 0;
+        }
+        .component-name {
+            flex: 1;
+        }
+        .component-price {
+            text-align: right;
+            flex: 1;
+        }
+        .total-cost {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #343541;
+    color: #d1d5db;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background-color: #40414f;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+}
+
+h1, h2 {
+    color: #ececf1;
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 16px;
+    color: #ececf1;
+    margin-bottom: 8px;
+    display: block;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #565869;
+    border-radius: 6px;
+    background-color: #343541;
+    font-size: 16px;
+    color: #ececf1;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #8e8ea0;
+}
+
+button {
+    padding: 12px 20px;
+    background-color: #565869;
+    color: #ececf1;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #6c6f85;
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+    color: #999;
+    font-size: 14px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>حساب تكلفة قطع الحاسوب</h2>
+
+        <label for="totalAmount">أدخل المبلغ الإجمالي:</label>
+        <input type="number" id="totalAmount" placeholder="أدخل المبلغ">
+        <br>
+        <button onclick="autoSelectComponents()">تحديد القطع تلقائيًا</button>
+
+        <label for="cpuSelect">اختر المعالج:</label>
+<select id="cpuSelect" onchange="updateCpuPrice()">
+    <option value="">اختر المعالج</option>
+    <option value="350">Intel Core i3-12400F</option>
+    <option value="450">Intel Core i5-12400F</option>
+    <option value="600">Intel Core i5-13400F</option>
+    <option value="1000">Intel Core i7-12700KF</option>
+    <option value="1200">Intel Core i7-14700KF</option>
+    <option value="2300">Intel Core i9-14900KF</option>
+    <option value="300">AMD Ryzen 5 5500</option>
+    <option value="350">AMD Ryzen 5 5600</option>
+    <option value="600">AMD Ryzen 7 5700X 3D</option>
+    <option value="500">AMD Ryzen 5 7500F</option>
+    <option value="800">AMD Ryzen 7 7700X</option>  
+    <option value="1000">AMD Ryzen 7 7800X 3D</option>
+    <option value="1300">AMD Ryzen 9 7900X</option>  
+    <option value="1500">AMD Ryzen 9 7900X 3D</option>  
+    <option value="">اخر</option>
+
+</select>
+<script>
+function updateCpuPrice() {
+    var cpuSelect = document.getElementById("cpuSelect");
+    var cpuPrice = document.getElementById("cpuPrice");
+    cpuPrice.value = cpuSelect.value;
+}
+
+</script>
+
+        <!-- حقول إدخال الأسعار المعدلة -->
+        <label for="cpuPrice">تعديل سعر المعالج:</label>
+        <input type="number" id="cpuPrice" placeholder="أدخل السعر">
+
+<label for="coolerSelect">اختر المبرد:</label>
+<select id="coolerSelect" onchange="updateCoolerPrice()">
+    <option value="">اختر المبرد</option>
+    <option value="84">DeepCool AG400</option>
+    <option value="86">Cooler Master Hyper 212</option>
+    <option value="195">DeepCool AG620 V2</option>
+    <option value="243">COOLER MASTER ML240L ARGB(مائي) ATX</option>
+    <option value="254">Thermalright AE240 ARGB(مائي)</option>
+    <option value="264">Thermalright FN240 ARGB(مائي)</option>
+    <option value="290">Thermalright-Phantom Spirait 120 EVO</option>
+    <option value="418">Thermalright FN360 ARGB(مائي)</option>
+    <option value="442">COOLER MASTER ML360L V2</option>
+    <option value="509">Corsair H150 RGB 360(مائي)</option>
+    <option value="1083">CORSAIR iCUE LINK H170i LCD</option>
+    <option value="">اخر</option>
+</select>
+
+        <label for="coolerPrice">تعديل سعر المبرد:</label>
+        <input type="number" id="coolerPrice" placeholder="أدخل السعر">
+<label for="motherboardSelect">اختر اللوحة الأم:</label>
+<select id="motherboardSelect" onchange="updateMotherboardPrice()">
+    <option value="">اختر اللوحة الأم</option>
+    <option value="211">Gigabyte A520m-k-v2 Am4</option>
+    <option value="326">ASUS Prime B450M-A II AMD AM4</option>
+    <option value="409">MSI B550-a pro Am4</option>
+    <option value="441">ASRock B550 Phantom Gaming Am4</option>
+    <option value="395">ASRock B550M Pro SE AM4 white</option>
+    <option value="512">GIGABYTE B550 GAMING X V2 AM4</option>
+    <option value="349">MSI PRO A620M-E AM5</option>
+    <option value="465">MSI PRO B650-P WIFI AM5</option>
+    <option value="558">GIGABYTE B650M K AM5</option>
+    <option value="652">MSI PRO B650-S WIFI AM5</option>
+    <option value="696">ASRock B650M Pro RS WiFi AM5 white</option>
+    <option value="744">GIGABYTE B650 EAGLE AX AM5</option>
+    <option value="1254">MSI MAG X670E TOMAHAWK WIFI AM5</option>
+    <option value="1115">MSI X670E GAMING PLUS WIFI AM5</option>
+    <option value="2282">ASRock X670E Taichi AM5 EATX</option>
+    <option value="372">MSI PRO H610M-G lga1700 DDR4</option>
+    <option value="418">ASRock B760M-HDV/M.2 LGA1700 DDR4</option>
+    <option value="442">ASRock B660M PRO RS LGA 1700 DDR4</option>
+    <option value="511">GIGABYTE B760M DS3H DDR4</option>
+    <option value="557">ASRock Z690 Pro RS DDR4</option>
+    <option value="534">ASRock B760M PG Lightning DDR5</option>
+    <option value="604">ASRock B760 Pro RS LGA1700 DDR5 white</option>
+    <option value="674">ASRock B760 Pro RS LGA1700 DDR5 Black</option>
+    <option value="883">MSI Z790 GAMING PRO WIFI LGA 1700</option>
+    <option value="1193">ASUS TUF Gaming Z790-Plus WiFi</option>
+    <option value="2759">ASUS ROG Maximus Z790 Dark Hero</option>
+    <option value="458">ASUS ROG Maximus XII Z590-GAMING</option>
+    <option value="">اخر</option>
+</select>
+        <label for="motherboardPrice">تعديل سعر اللوحة الأم:</label>
+        <input type="number" id="motherboardPrice" placeholder="أدخل السعر">
+<label for="gpuSelect">اختر بطاقة الرسوميات:</label>
+<select id="gpuSelect" onchange="updateGpuPrice()">
+    <option value="">اختر بطاقة الرسوميات</option>
+    <option value="250">GIGABYTE GeForce GT 1030 2GB</option>
+    <option value="291">SOYO RX 580 8G</option>
+    <option value="603">GIGABYTE GeForce GTX 1650 4GB</option>
+    <option value="650">ASRock Phantom Gaming D Radeon RX 6500 XT 4GB</option>
+    <option value="744">ASRock Phantom Gaming D Radeon RX 6500 XT 8GB</option>
+    <option value="790">MSI Ventus GeForce RTX 3050 6GB</option>
+    <option value="837">GIGABYTE Radeon RX 6600 EAGLE 8G</option>
+    <option value="1023">NVIDIA GeForce RTX 3060 8Gb</option>
+    <option value="1057">Geforce Rtx 3060 Ventus 2x 12gb</option>
+    <option value="1115">ASRock RX 6600 XT 8GB</option>
+    <option value="1167">ASRock Challenger Radeon RX 7600 8GB </option>
+    <option value="1208">Zotac GeForce RTX 3060 12GB</option>
+    <option value="1440">ASRock RX 7600 XT 16GB</option>
+    <option value="1486">XFX RX 6750 XT 12GB</option>
+    <option value="1766">ZOTAC GAMING GeForce RTX 4060 Ti 8GB </option>
+    <option value="1812">ASRock RX 7700 XT 12GB</option>
+    <option value="1998">MSI Ventus GeForce RTX 4060 Ti 16GB</option>
+    <option value="1998">ASRock Radeon RX 6800 XT</option>
+    <option value="2183">ASRock Challenger Radeon RX 7800 XT 16GB</option>
+    <option value="2300">GIGABYTE Gaming GeForce RTX 4070 super 12GB</option>
+    <option value="2463">ASRock Challenger Radeon RX 7900 GRE 16GB</option>
+    <option value="2900">palit RTX 4070 ti super 16GB</option>
+    <option value="3160">ASRock Phantom Gaming Radeon RX 7900 XT 20GB</option>
+    <option value="3500">palit RTX 4080 super 16GB</option>
+    <option value="4181">ASRock Phantom Gaming Radeon RX 7900 XTX 24GB</option>
+    <option value="8593">GIGABYTE Gaming GeForce RTX 4090 24GB</option>
+    <option value="">اخر</option>
+</select>
+        <label for="gpuPrice">تعديل سعر بطاقة الرسوميات:</label>
+        <input type="number" id="gpuPrice" placeholder="أدخل السعر">
+<label for="ramSelect">اختر الذاكرة:</label>
+<select id="ramSelect" onchange="updateRamPrice()">
+    <option value="">اختر الذاكرة</option>
+    <option value="38">Corsair Vengeance LPX 4GB DDR4-2400</option>
+    <option value="84">Corsair Vengeance LPX 8GB DDR4-2666</option>
+    <option value="165">Corsair Vengeance LPX 8x2 16GB DDR4-3200</option>
+    <option value="192">Team T-Force Delta RGB 16GB (2 x 8GB) DDR4 3200</option>
+    <option value="238">Team T-FORCE VULCAN Z 32GB (2 x 16GB) DDR4 3200</option>
+    <option value="257">Team T-FORCE VULCAN Z 32GB (2 x 16GB) DDR4 3600</option>
+    <option value="317">Team T-Force Delta RGB 32GB (2 x 16GB) DDR4 3600</option>
+    <option value="401">Team T-CREATE EXPERT 32GB (2 x 16GB) DDR5 6000 cl38</option>
+    <option value="415">Team T-CREATE EXPERT 32GB (2 x 16GB) DDR5 6000 cl30</option>
+    <option value="451">Team T-Force Delta RGB 32GB (2 x 16GB) DDR5 6000 cl30 </option>
+    <option value="976">CORSAIR Vengeance RGB 64GB (2 x 32GB) DDR5 cl30 6000</option>
+    <option value="">اخر</option>
+</select>
+
+        <label for="ramPrice">تعديل سعر الذاكرة:</label>
+        <input type="number" id="ramPrice" placeholder="أدخل السعر">
+<label for="ssdSelect">اختر التخزين:</label>
+<select id="ssdSelect" onchange="updateSsdPrice()">
+    <option value="">اختر التخزين</option>
+    <option value="85">silicon power 256gb NVMe M.2 PCIe Gen3x4 2280 </option>
+    <option value="130">silicon power 512gb NVMe M.2 PCIe Gen3x4 2280</option>
+    <option value="215">m.2 nvme kingston 1tb Gen4</option>
+    <option value="236">Crucial p3 1tb nvme Gen4 </option>
+    <option value="479">m.2 nvme WD Blue SN580 2tb Gen4</option>
+    <option value="400">m.2 nvme Samsung 990 pro 1tb Gen4</option>
+    <option value="299">HDD WD Blue 2TB</option>
+    <option value="369">HDD WD Blue 4TB</option>
+    <option value="553">HDD WD Blue 6TB</option>
+    <option value="679">HDD WD Blue 8TB</option>
+    <option value="">اخر</option>
+</select>
+
+        <label for="ssdPrice">تعديل سعر التخزين:</label>
+        <input type="number" id="ssdPrice" placeholder="أدخل السعر">
+<label for="ssdpSelect">التخزين الاضافي:</label>
+<select id="ssdpSelect" onchange="updateSsdpPrice()">
+    <option value="">اختر التخزين الاضافي</option>
+    <option value="85">silicon power 256gb NVMe M.2 PCIe Gen3x4 2280 </option>
+    <option value="130">silicon power 512gb NVMe M.2 PCIe Gen3x4 2280</option>
+    <option value="215">m.2 nvme kingston 1tb Gen4</option>
+    <option value="236">Crucial p3 1tb nvme Gen4 </option>
+    <option value="479">m.2 nvme WD Blue SN580 2tb Gen4</option>
+    <option value="400">m.2 nvme Samsung 990 pro 1tb Gen4</option>
+    <option value="299">HDD WD Blue 2TB</option>
+    <option value="369">HDD WD Blue 4TB</option>
+    <option value="553">HDD WD Blue 6TB</option>
+    <option value="679">HDD WD Blue 8TB</option>
+    <option value="">اخر</option>
+</select>
+<label for="ssdpPrice">تعديل سعر التخزين الاضافي:</label>
+<input type="number" id="ssdpPrice" placeholder="أدخل السعر">
+
+<label for="psuSelect">اختر مزود الطاقة:</label>
+<select id="psuSelect" onchange="updatePsuPrice()">
+    <option value="">اختر مزود الطاقة</option>
+    <option value="118">UNYKACH 500 silver</option>
+    <option value="257">MSI mag A650BN bronze</option>
+    <option value="263">XPG pylon 650w bronze</option>
+    <option value="289">Cooler Master MWE 700W </option>
+    <option value="318">XPG pylon 750w bronze</option>
+    <option value="360">Cooler Master MWE 750W v2 full gold </option>
+    <option value="488">Corsair RM850e 2023 full gold</option>
+    <option value="617">Corsair RM1000e 2023 full gold</option>
+    <option value="">اخر</option>
+</select>
+        <label for="psuPrice">تعديل سعر مزود الطاقة:</label>
+        <input type="number" id="psuPrice" placeholder="أدخل السعر">
+<label for="caseSelect">اختر الصندوق:</label>
+<select id="caseSelect" onchange="updateCasePrice()">
+    <option value="">اختر الصندوق</option>
+    <option value="199">rasofin sharck S-200</option>
+    <option value="279">gamdas E3 RGB</option>
+    <option value="449">Infiniarc cube 6 fan XL </option>
+    <option value="338">MSi forg 112R </option>
+    <option value="349">Corsair 3000D RGB</option>
+    <option value="375">Corsair 4000D white non rgb </option>
+    <option value="419">NZXT H5 RGB</option>
+    <option value="479">lian li 216 RGB</option>
+    <option value="509">Lian Li PC-O11 Dynamic non fan</option>
+    <option value="">اخر</option>
+</select>
+        <label for="casePrice">تعديل سعر الصندوق:</label>
+        <input type="number" id="casePrice" placeholder="أدخل السعر">
+        <br>
+
+        <button onclick="calculatePrice()">احسب</button>
+
+        <h3>التكلفةالاجمالية:</h3>
+        <p id="result"></p>
+
+        <button onclick="copyResult()">نسخ الأسعار</button>
+        <br><br>
+
+        <div id="saveForm" class="hidden">
+            <label for="buildName">اسم التجميعه:</label>
+            <input type="text" id="buildName" placeholder="أدخل اسم التجميعه">
+            <button onclick="saveBuild()">حفظ</button>
+        </div>
+
+        <h3>التجميعات المحفوظة:</h3>
+        <ul id="savedBuilds"></ul>
+    </div>
+
+    <script>
+function calculatePrice() {
+        var totalAmount = parseFloat(document.getElementById("totalAmount").value);
+
+        if (isNaN(totalAmount)) {
+            document.getElementById("result").textContent = "يرجى إدخال المبلغ الإجمالي.";
+            return;
+        }
+
+        var percentages = {
+            "المعالج": 19,
+            "المبرد": 3,
+            "اللوحة الأم": 16,
+            "بطاقة الرسوميات": 32,
+            "الذاكرة": 9,
+            "التخزين": 5,
+            "مزود الطاقة": 8,
+            "الصندوق": 10
+        };
+
+        var adjustedPrices = {
+            "المعالج": parseFloat(document.getElementById("cpuPrice").value) || 0,
+            "المبرد": parseFloat(document.getElementById("coolerPrice").value) || 0,
+            "اللوحة الأم": parseFloat(document.getElementById("motherboardPrice").value) || 0,
+            "بطاقة الرسوميات": parseFloat(document.getElementById("gpuPrice").value) || 0,
+            "الذاكرة": parseFloat(document.getElementById("ramPrice").value) || 0,
+            "التخزين": parseFloat(document.getElementById("ssdPrice").value) || 0,
+            "مزود الطاقة": parseFloat(document.getElementById("psuPrice").value) || 0,
+            "الصندوق": parseFloat(document.getElementById("casePrice").value) || 0
+        };
+
+        var selectedComponents = {
+            "المعالج": document.getElementById("cpuSelect").options[document.getElementById("cpuSelect").selectedIndex].text,
+            "المبرد": document.getElementById("coolerSelect").options[document.getElementById("coolerSelect").selectedIndex].text,
+            "اللوحة الأم": document.getElementById("motherboardSelect").options[document.getElementById("motherboardSelect").selectedIndex].text,
+            "بطاقة الرسوميات": document.getElementById("gpuSelect").options[document.getElementById("gpuSelect").selectedIndex].text,
+            "الذاكرة": document.getElementById("ramSelect").options[document.getElementById("ramSelect").selectedIndex].text,
+            "التخزين": document.getElementById("ssdSelect").options[document.getElementById("ssdSelect").selectedIndex].text,
+            "مزود الطاقة": document.getElementById("psuSelect").options[document.getElementById("psuSelect").selectedIndex].text,
+            "الصندوق": document.getElementById("caseSelect").options[document.getElementById("caseSelect").selectedIndex].text
+        };
+
+        var totalPercentage = 100;
+        var totalAdjusted = 0;
+        var resultHTML = "";
+
+        for (var component in adjustedPrices) {
+            if (adjustedPrices[component]) {
+                totalAdjusted += adjustedPrices[component];
+                totalPercentage -= percentages[component];
+            }
+        }
+
+        for (var component in percentages) {
+            var componentName = selectedComponents[component];
+            var price;
+            if (adjustedPrices[component]) {
+                price = adjustedPrices[component];
+                resultHTML += `<div class='result-row'>
+                    <div class='component-name'>${componentName}</div>
+                    <div class='component-price'>${price.toFixed(2)} ريال (تم التعديل)</div>
+                </div>`;
+            } else {
+                var calculatedPrice = ((totalAmount - totalAdjusted) * (percentages[component] / totalPercentage));
+                resultHTML += `<div class='result-row'>
+                    <div class='component-name'>${componentName}</div>
+                    <div class='component-price'>${calculatedPrice.toFixed(2)} ريال</div>
+                </div>`;
+            }
+        }
+
+        var totalCost = totalAdjusted;
+        for (var component in percentages) {
+            if (!adjustedPrices[component]) {
+                totalCost += ((totalAmount - totalAdjusted) * (percentages[component] / totalPercentage));
+            }
+        }
+
+        resultHTML += `<div class='total-cost'>التكلفة الإجمالية: ${totalCost.toFixed(2)} ريال</div>`;
+        document.getElementById("result").innerHTML = resultHTML;
+    }
+
+
+
+
+
+        function copyResult() {
+            var resultText = document.getElementById("result").innerText;
+            navigator.clipboard.writeText(resultText).then(function() {
+                alert('تم نسخ النتائج!');
+            }, function(err) {
+                console.error('فشل النسخ: ', err);
+            });
+        }
+
+        function saveBuild() {
+            var buildName = document.getElementById("buildName").value;
+            if (buildName) {
+                var resultText = document.getElementById("result").innerHTML;
+
+                if (resultText.trim()) {
+                    var savedBuilds = JSON.parse(localStorage.getItem("builds")) || [];
+
+                    savedBuilds.push({
+                        name: buildName,
+                        details: resultText.replace(/<br>/g, "\n")
+                    });
+
+                    localStorage.setItem("builds", JSON.stringify(savedBuilds));
+
+                    displaySavedBuilds();
+
+                    document.getElementById("buildName").value = "";
+                    document.getElementById("saveForm").classList.add("hidden");
+                }
+            } else {
+                alert("يرجى إدخال اسم للتجميعه.");
+            }
+            function saveBuild() {
+    var buildName = document.getElementById("buildName").value;
+    if (buildName) {
+        var resultText = document.getElementById("result").innerHTML;
+
+        if (resultText.trim()) {
+            var savedBuilds = JSON.parse(localStorage.getItem("builds")) || [];
+
+            var totalPrice = resultText.match(/التكلفة الإجمالية: (\d+(\.\d+)?) ريال/)[1];
+
+            savedBuilds.push({
+                name: buildName,
+                details: resultText.replace(/<br>/g, "\n"),
+                totalPrice: totalPrice
+            });
+
+            localStorage.setItem("builds", JSON.stringify(savedBuilds));
+
+            displaySavedBuilds();
+
+            document.getElementById("buildName").value = "";
+            document.getElementById("saveForm").classList.add("hidden");
+        }
+    } else {
+        alert("يرجى إدخال اسم للتجميعه.");
+    }
+}
+        }
+
+        function displaySavedBuilds() {
+            var savedBuilds = JSON.parse(localStorage.getItem("builds")) || [];
+            var savedBuildsContainer = document.getElementById("savedBuilds");
+            savedBuildsContainer.innerHTML = "";
+
+            savedBuilds.forEach(function(build, index) {
+                var listItem = document.createElement("li");
+                listItem.innerHTML = `
+                    <strong>${build.name}:</strong><br>${build.details.replace(/\n/g, "<br>")}
+                    <div class="build-controls">
+                        <button onclick="editBuild(${index})">تعديل</button>
+                        <button onclick="deleteBuild(${index})">حذف</button>
+                    </div>
+                `;
+                savedBuildsContainer.appendChild(listItem);
+            });
+        }
+function editBuild(index) {
+            var savedBuilds = JSON.parse(localStorage.getItem("builds")) || [];
+            var build = savedBuilds[index];
+
+            var buildDetails = build.details.split("\n");
+            var componentPrices = {};
+
+            buildDetails.forEach(function(detail) {
+                var parts = detail.split(":");
+                if (parts.length === 2) {
+                    var component = parts[0].trim();
+                    var price = parseFloat(parts[1].replace("ريال", "").replace("(تم التعديل)", "").trim());
+                    componentPrices[component] = price;
+                }
+            });
+
+            // تعبئة الحقول بالقيم المحفوظة للتعديل
+            document.getElementById("totalAmount").value = "";
+            document.getElementById("cpuPrice").value = componentPrices["المعالج"] || "";
+            document.getElementById("coolerPrice").value = componentPrices["المبرد"] || "";
+            document.getElementById("motherboardPrice").value = componentPrices["اللوحة الأم"] || "";
+            document.getElementById("gpuPrice").value = componentPrices["بطاقة الرسوميات"] || "";
+            document.getElementById("ramPrice").value = componentPrices["الذاكرة"] || "";
+            document.getElementById("ssdPrice").value = componentPrices["التخزين"] || "";
+            document.getElementById("psuPrice").value = componentPrices["مزود الطاقة"] || "";
+            document.getElementById("casePrice").value = componentPrices["الصندوق"] || "";
+
+            // حذف التجميعة القديمة بعد التعديل
+            deleteBuild(index);
+        }
+
+        function deleteBuild(index) {
+            var savedBuilds = JSON.parse(localStorage.getItem("builds")) || [];
+            savedBuilds.splice(index, 1);
+            localStorage.setItem("builds", JSON.stringify(savedBuilds));
+            displaySavedBuilds();
+        }
+
+        function showSaveForm() {
+            document.getElementById("saveForm").classList.remove("hidden");
+        }
+
+        window.onload = function() {
+            displaySavedBuilds();
+        };
+
+        function updateCoolerPrice() {
+    var coolerSelect = document.getElementById("coolerSelect");
+    var coolerPrice = document.getElementById("coolerPrice");
+    coolerPrice.value = coolerSelect.value;
+}
+
+function updateMotherboardPrice() {
+    var motherboardSelect = document.getElementById("motherboardSelect");
+    var motherboardPrice = document.getElementById("motherboardPrice");
+    motherboardPrice.value = motherboardSelect.value;
+}
+
+function updateGpuPrice() {
+    var gpuSelect = document.getElementById("gpuSelect");
+    var gpuPrice = document.getElementById("gpuPrice");
+    gpuPrice.value = gpuSelect.value;
+}
+
+function updateRamPrice() {
+    var ramSelect = document.getElementById("ramSelect");
+    var ramPrice = document.getElementById("ramPrice");
+    ramPrice.value = ramSelect.value;
+}
+
+function updateSsdPrice() {
+    var ssdSelect = document.getElementById("ssdSelect");
+    var ssdPrice = document.getElementById("ssdPrice");
+    ssdPrice.value = ssdSelect.value;
+}
+
+function updateSsdpPrice() {
+    var ssdpSelect = document.getElementById("ssdpSelect");
+    var ssdpPrice = document.getElementById("ssdpPrice");
+    ssdpPrice.value = ssdpSelect.value;
+}
+
+function updatePsuPrice() {
+    var psuSelect = document.getElementById("psuSelect");
+    var psuPrice = document.getElementById("psuPrice");
+    psuPrice.value = psuSelect.value;
+}
+
+function updateCasePrice() {
+    var caseSelect = document.getElementById("caseSelect");
+    var casePrice = document.getElementById("casePrice");
+    casePrice.value = caseSelect.value;
+}
+    </script>
+    
+    <script>
+    function autoSelectComponents() {
+        var totalAmount = document.getElementById("totalAmount").value;
+        if (totalAmount) {
+            var percentages = {
+                "cpu": 19,
+                "cooler": 3,
+                "motherboard": 16,
+                "gpu": 32,
+                "ram": 9,
+                "ssd": 5,
+                "psu": 8,
+                "case": 10
+            };
+    
+            for (var component in percentages) {
+                var price = (totalAmount * percentages[component] / 100).toFixed(0);
+                var select = document.getElementById(component + "Select");
+                var priceInput = document.getElementById(component + "Price");
+    
+                // Find the closest option
+                var closestOption = null;
+                var minDifference = Infinity;
+                for (var i = 0; i < select.options.length; i++) {
+                    var difference = Math.abs(select.options[i].value - price);
+                    if (difference < minDifference) {
+                        minDifference = difference;
+                        closestOption = select.options[i];
+                    }
+                }
+    
+                // Set the selected option and update the price
+                if (closestOption) {
+                    select.value = closestOption.value;
+                    priceInput.value = closestOption.value;
+                } else {
+                    priceInput.value = price;
+                }
+            }
+        } else {
+            alert("يرجى إدخال المبلغ الإجمالي أولاً.");
+        }
+    }
+    
+    </script>
+    
+</body>
+</html>
