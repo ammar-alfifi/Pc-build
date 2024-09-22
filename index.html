@@ -612,19 +612,24 @@ function updateCasePrice() {
                 "case": 10
             };
     
+            var selectedComponents = {};
+    
             for (var component in percentages) {
                 var price = (totalAmount * percentages[component] / 100).toFixed(0);
                 var select = document.getElementById(component + "Select");
                 var priceInput = document.getElementById(component + "Price");
     
-                // Find the closest option
+                // Find the closest compatible option
                 var closestOption = null;
                 var minDifference = Infinity;
                 for (var i = 0; i < select.options.length; i++) {
-                    var difference = Math.abs(select.options[i].value - price);
-                    if (difference < minDifference) {
-                        minDifference = difference;
-                        closestOption = select.options[i];
+                    var option = select.options[i];
+                    if (isCompatible(component, option.text, selectedComponents)) {
+                        var difference = Math.abs(option.value - price);
+                        if (difference < minDifference) {
+                            minDifference = difference;
+                            closestOption = option;
+                        }
                     }
                 }
     
@@ -632,8 +637,10 @@ function updateCasePrice() {
                 if (closestOption) {
                     select.value = closestOption.value;
                     priceInput.value = closestOption.value;
+                    selectedComponents[component] = closestOption.text;
                 } else {
                     priceInput.value = price;
+                    alert("No compatible " + component + " found within the budget. Please adjust manually.");
                 }
             }
         } else {
@@ -641,6 +648,36 @@ function updateCasePrice() {
         }
     }
     
+    function isCompatible(component, option, selectedComponents) {
+        // Implement compatibility logic here
+        // For example:
+        if (component === "motherboard" && selectedComponents.cpu) {
+            return option.includes(getCpuSocket(selectedComponents.cpu));
+        }
+        if (component === "ram" && selectedComponents.motherboard) {
+            return option.includes(getRamType(selectedComponents.motherboard));
+        }
+        // Add more compatibility checks as needed
+        return true;
+    }
+    
+    function getCpuSocket(cpu) {
+        // Implement logic to determine CPU socket
+        // For example:
+        if (cpu.includes("AMD")) return "AM5";
+        if (cpu.includes("Intel")) return "LGA1700";
+        // Add more socket determinations as needed
+        return "";
+    }
+    
+    function getRamType(motherboard) {
+        // Implement logic to determine RAM type
+        // For example:
+        if (motherboard.includes("DDR4")) return "DDR4";
+        if (motherboard.includes("DDR5")) return "DDR5";
+        // Add more RAM type determinations as needed
+        return "";
+    }
     </script>
     
 </body>
