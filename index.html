@@ -12,7 +12,7 @@
         .result-row {
             display: flex;
             justify-content: space-between;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #2b6cb0;
             padding: 5px 0;
         }
         .component-name {
@@ -34,16 +34,16 @@
 body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: #2e2f3e;
             margin: 0;
             padding: 20px;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
+            min-height: 100vh;           
         }
 
         h2 {
-            color: #2c3e50;
+            color: #2e2f3e;
             border-bottom: 2px solid #3498db;
             padding-bottom: 10px;
         }
@@ -52,10 +52,10 @@ body {
         }
         #references {
             font-size: 0.9em;
-            margin-top: 20px;
+            margin-top: 20px;   
         }
         #references h3 {
-            color: #2c3e50;
+            color: #2e2f3e;
             font-size: 1em;
             margin-bottom: 5px;
         }
@@ -74,10 +74,22 @@ body {
         #references a:hover {
             text-decoration: underline;
         }
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #343541;
-    color: #d1d5db;
+    background-color: #2e2f3e;
+    color: #b0b3c0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -85,7 +97,7 @@ body {
 }
 
 .container {
-    background-color: #40414f;
+    background-color: #3a3c4f;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 20px;
@@ -97,6 +109,8 @@ body {
 h1, h2 {
     color: #ececf1;
     margin-bottom: 20px;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
 }
 
 label {
@@ -112,7 +126,7 @@ input, select, textarea {
     margin-bottom: 20px;
     border: 1px solid #565869;
     border-radius: 6px;
-    background-color: #343541;
+    background-color: #2e2f3e;
     font-size: 16px;
     color: #ececf1;
 }
@@ -124,7 +138,7 @@ input:focus, select:focus, textarea:focus {
 
 button {
     padding: 12px 20px;
-    background-color: #565869;
+    background-color: #5a5d7a;
     color: #ececf1;
     border: none;
     border-radius: 6px;
@@ -133,7 +147,118 @@ button {
 }
 
 button:hover {
-    background-color: #6c6f85;
+    background-color: #2b6cb0;
+}
+
+.menu-container {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+}
+
+.menu-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.hamburger-line {
+    width: 30px;
+    height: 3px;
+    background-color: #ececf1;
+    transition: all 0.3s linear;
+}
+
+.menu-button.active .hamburger-line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.menu-button.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-button.active .hamburger-line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+.menu-content {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    height: 100vh;
+    background-color: #2e2f3e;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    transition: left 0.3s ease-in-out;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 20px 0;
+    min-width: 250px;
+}
+
+.menu-content.show {
+    left: 0;
+}
+
+.menu-content a {
+    color: #ececf1;
+    padding: 20px 30px;
+    text-decoration: none;
+    display: block;
+    font-size: 18px;
+    text-align: center;
+    white-space: nowrap;
+    transition: background-color 0.2s;
+    margin: 10px 0;
+}
+
+.menu-content a:hover {
+    background-color: #4a4e63;
+}
+
+.popup, .saved-builds-popup {
+    background-color: #3a3c4f;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    color: #ececf1;
+    max-width: 80%;
+    max-height: 80%;
+    overflow-y: auto;
+}
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.saved-builds-list li {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #4a4e63;
+    border-radius: 4px;
+}
+
+.build-actions button {
+    margin-right: 5px;
+    padding: 5px 10px;
+    background-color: #5a5d7a;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.build-actions button.delete {
+    background-color: #f44336;
 }
 
 footer {
@@ -142,12 +267,194 @@ footer {
     color: #999;
     font-size: 14px;
 }
+.menu-container {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+}
 
+.menu-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    box-sizing: border-box;
+    transition: transform 0.3s ease-in-out;
+    position: relative;
+}
+
+.menu-button.move-out {
+    transform: translateX(300px);
+}
+
+.hamburger-line {
+    width: 30px;
+    height: 3px;
+    background-color: #b0b3c0;
+    transition: all 0.3s linear;
+}
+
+.menu-button.active .hamburger-line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.menu-button.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-button.active .hamburger-line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+.menu-content {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    height: 100vh;
+    background-color: #3a3c4d;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    transition: left 0.3s ease-in-out;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 20px 0;
+    width: auto;
+    min-width: 300px;
+}
+
+.menu-content.show {
+    left: 0;
+}
+
+.menu-content a {
+    color: #ececf1;
+    padding: 20px 30px;
+    text-decoration: none;
+    display: block;
+    font-size: 18px;
+    text-align: center;
+    white-space: nowrap;
+    transition: background-color 0.2s;
+    margin: 10px 0;
+}
+
+.menu-content a:hover {
+    background-color: #4a4e63;
+}
+
+.build-name-display {
+    position: fixed;
+    top: 50px;
+    left: 10px;
+    background-color: #3a3c4f;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    color: #ececf1;
+    display: none;
+    z-index: 1001;
+}
+
+@media (max-width: 768px) {
+    .menu-content {
+        width: 70%;
+        left: -70%;
+    }
+}
+
+.container {
+    transition: transform 0.3s ease-in-out;
+}
+
+.container.menu-open {
+    transform: translateX(200px);
+}
+
+.hidden {
+    display: none;
+}
+
+.popup, .saved-builds-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #3a3c4f;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    color: #ececf1;
+    z-index: 1000;
+}
+
+.saved-builds-popup {
+    max-width: 80%;
+    max-height: 80%;
+    overflow-y: auto;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.saved-builds-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.saved-builds-list li {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #4a4e63;
+    border-radius: 4px;
+}
+
+.build-actions {
+    margin-top: 10px;
+}
+
+.build-actions button {
+    margin-right: 5px;
+    padding: 5px 10px;
+    background-color: #5a5d7a;
+    color: #ececf1;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.build-actions button.delete {
+    background-color: #e53935;
+}
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>حساب تكلفة قطع الحاسوب</h2>
+    <div class="menu-container">
+        <button onclick="toggleMenu()" class="menu-button" aria-label="القائمة">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+        <div id="myMenu" class="menu-content">
+            <a href="#" onclick="showPopup()">حفظ</a>
+            <a href="#" onclick="showSavedBuildsPopup()">التجميعات المحفوظة</a>
+                </div>
+    </div>
+        <div class="container">
+        <h2>Pc Builder</h2>
 
         <label for="totalAmount">أدخل المبلغ الإجمالي:</label>
         <input type="number" id="totalAmount" placeholder="أدخل المبلغ">
@@ -370,11 +677,11 @@ function updateCpuPrice() {
     <option value="259">MAG FORGE 100R</option>
     <option value="279">gamdas E3 RGB</option>
     <option value="289">Gameon ARGB White EMPEROR</option>
+    <option value="399">Infiniarc cube 6 fan XL </option>
     <option value="338">MSi forg 112R </option>
     <option value="349">Corsair 3000D RGB</option>
     <option value="369">LIAN LI 216 RGB</option>
     <option value="375">Corsair 4000D white non rgb </option>
-    <option value="399">Infiniarc cube 6 fan XL </option>
     <option value="419">NZXT H5 RGB</option>
     <option value="499">NZXT H6 FLOW RGB (2023)</option>
     <option value="509">Lian Li PC-O11 Dynamic non fan</option>
@@ -394,31 +701,84 @@ function updateCpuPrice() {
         <button onclick="copyResult()">نسخ الأسعار</button>
         <br><br>
 
-        <div id="saveForm" class="hidden">
-            <label for="buildName">اسم التجميعه:</label>
-            <input type="text" id="buildName" placeholder="أدخل اسم التجميعه">
-            <button onclick="saveBuild()">حفظ</button>
-        </div>
-
-        <h3>التجميعات المحفوظة:</h3>
-        <ul id="savedBuilds"></ul>
     </div>
-
-    <div id="references">
-        <ul>
-            <li>متاجر<br><a href="https://www.amazon.sa" target="_blank">امازون</a>
-               - <a href="https://www.newegg.com/global/sa-en/" target="_blank">نيو ايج</a>
-               - <a href="https://pcd.com.sa/product-category/computer-parts" target="_blank">طبيب الكمبيوتر</a>
-               - <a href="https://www.aliexpress.com" target="_blank">علي اكسبرس</a>
-               - <a href="https://www.trendyol.com/ar/sr?wc=103662" target="_blank">ترنديول</a>
-            </li>
-            <li>مقارنة القطع<br>
-                  <a href="https://cultists.network/140/psu-tier-list/" target="_blank">باور سبلاي</a>
-                - <a href="https://www.cpubenchmark.net/cpu_list.php" target="_blank">معالج</a>
-                - <a href="https://gpu.userbenchmark.com/" target="_blank">كرت الشاشة</a></li>
-        </ul>
-    </div>    
     <script>
+        function closeAllPopups() {
+    document.getElementById('popupOverlay').classList.add('hidden');
+    document.getElementById('savedBuildsPopup').classList.add('hidden');
+    document.getElementById('popup').classList.add('hidden');
+}
+
+function saveBuild() {
+    var buildName = document.getElementById("buildName").value;
+    if (buildName) {
+        var savedBuilds = JSON.parse(localStorage.getItem("builds")) || [];
+        var buildDetails = getBuildDetails();
+
+        savedBuilds.push({
+            name: buildName,
+            details: buildDetails
+        });
+
+        localStorage.setItem("builds", JSON.stringify(savedBuilds));
+        closeAllPopups();
+        displaySavedBuilds();
+    } else {
+        alert("يرجى إدخال اسم للتجميعة.");
+    }
+}
+
+function displaySavedBuilds() {
+    var savedBuilds = JSON.parse(localStorage.getItem("builds")) || [];
+    var savedBuildsContainer = document.getElementById("savedBuilds");
+    savedBuildsContainer.innerHTML = ""; 
+
+    savedBuilds.forEach(function(build, index) {
+        var listItem = document.createElement("li");
+        listItem.innerHTML = `
+            <strong>${build.name}:</strong><br>${build.details.replace(/\n/g, "<br>")}
+            <div class="build-actions">
+                <button onclick="deleteBuild(${index})" class="delete">حذف</button>
+            </div>
+        `;
+        savedBuildsContainer.appendChild(listItem);
+    });
+    document.getElementById('popupOverlay').classList.remove('hidden');
+}
+
+function showSavedBuildsPopup() {
+    const savedBuilds = JSON.parse(localStorage.getItem("builds")) || [];
+    const savedBuildsList = document.getElementById("savedBuildsList");
+    savedBuildsList.innerHTML = '';
+
+    savedBuilds.forEach((build, index) => {
+        const buildDiv = document.createElement("div");
+        buildDiv.classList.add("saved-builds-list-item");
+        buildDiv.innerHTML = `
+            <strong>${build.name}:</strong><br>${build.details.replace(/\n/g, "<br>")}
+            <div class="build-actions">
+                <button onclick="deleteBuild(${index})" class="delete">حذف</button>
+            </div>
+        `;
+        savedBuildsList.appendChild(buildDiv);
+    });
+
+    document.getElementById("savedBuildsPopup").classList.remove("hidden");
+    document.getElementById('popupOverlay').classList.remove('hidden');
+}
+
+function deleteBuild(index) {
+    var savedBuilds = JSON.parse(localStorage.getItem("builds")) || [];
+    savedBuilds.splice(index, 1);
+    localStorage.setItem("builds", JSON.stringify(savedBuilds));
+    closeAllPopups();
+    displaySavedBuilds();   
+}
+
+function closeSavedBuildsPopup() {
+    document.getElementById('savedBuildsPopup').classList.add('hidden');
+    document.getElementById('popupOverlay').classList.add('hidden');
+}
 var manualEdit = {
     "المعالج": false,
     "المبرد": false,
@@ -436,11 +796,12 @@ document.getElementById("motherboardPrice").addEventListener("input", function()
 document.getElementById("gpuPrice").addEventListener("input", function() { manualEdit["بطاقة الرسوميات"] = true; });
 document.getElementById("ramPrice").addEventListener("input", function() { manualEdit["الذاكرة"] = true; });
 document.getElementById("ssdPrice").addEventListener("input", function() { manualEdit["التخزين"] = true; });
+document.getElementById("ssdpPrice").addEventListener("input", function() { manualEdit["التخزين الاضافي"] = true; });
 document.getElementById("psuPrice").addEventListener("input", function() { manualEdit["مزود الطاقة"] = true; });
 document.getElementById("casePrice").addEventListener("input", function() { manualEdit["الصندوق"] = true; });
 
 function calculatePrice() {
-    var totalAmount = parseFloat(document.getElementById("totalAmount").value);
+    var totalAmount = parseFloat(document.getElementById("totalAmount").value) || 0;
 
     var percentages = {
         "المعالج": 19,
@@ -449,6 +810,7 @@ function calculatePrice() {
         "بطاقة الرسوميات": 32,
         "الذاكرة": 9,
         "التخزين": 5,
+        "التخزين الإضافي": 0, 
         "مزود الطاقة": 8,
         "الصندوق": 10
     };
@@ -460,6 +822,7 @@ function calculatePrice() {
         "بطاقة الرسوميات": parseFloat(document.getElementById("gpuPrice").value) || 0,
         "الذاكرة": parseFloat(document.getElementById("ramPrice").value) || 0,
         "التخزين": parseFloat(document.getElementById("ssdPrice").value) || 0,
+        "التخزين الإضافي": parseFloat(document.getElementById("ssdpPrice").value) || 0,
         "مزود الطاقة": parseFloat(document.getElementById("psuPrice").value) || 0,
         "الصندوق": parseFloat(document.getElementById("casePrice").value) || 0
     };
@@ -471,6 +834,7 @@ function calculatePrice() {
         "بطاقة الرسوميات": document.getElementById("gpuSelect").options[document.getElementById("gpuSelect").selectedIndex].text,
         "الذاكرة": document.getElementById("ramSelect").options[document.getElementById("ramSelect").selectedIndex].text,
         "التخزين": document.getElementById("ssdSelect").options[document.getElementById("ssdSelect").selectedIndex].text,
+        "التخزين الإضافي": document.getElementById("ssdpSelect").options[document.getElementById("ssdpSelect").selectedIndex].text,
         "مزود الطاقة": document.getElementById("psuSelect").options[document.getElementById("psuSelect").selectedIndex].text,
         "الصندوق": document.getElementById("caseSelect").options[document.getElementById("caseSelect").selectedIndex].text
     };
@@ -480,7 +844,7 @@ function calculatePrice() {
     var resultHTML = "";
 
     for (var component in adjustedPrices) {
-        if (adjustedPrices[component]) {
+        if (adjustedPrices[component] > 0) {
             totalAdjusted += adjustedPrices[component];
             totalPercentage -= percentages[component];
         }
@@ -514,10 +878,11 @@ function calculatePrice() {
         }
     }
 
+
     var totalCost = totalAdjusted;
 
     for (var component in percentages) {
-        if (!adjustedPrices[component]) {
+        if (adjustedPrices[component] <= 0) { 
             totalCost += ((totalAmount - totalAdjusted) * (percentages[component] / totalPercentage));
         }
     }
@@ -525,6 +890,7 @@ function calculatePrice() {
     resultHTML += `<div class='total-cost'>التكلفة الإجمالية: ${totalCost.toFixed(2)} ريال</div>`;
     document.getElementById("result").innerHTML = resultHTML;
 }
+
 
 
 
@@ -540,110 +906,36 @@ function calculatePrice() {
             });
         }
 
-        function saveBuild() {
-            var buildName = document.getElementById("buildName").value;
-            if (buildName) {
-                var resultText = document.getElementById("result").innerHTML;
 
-                if (resultText.trim()) {
-                    var savedBuilds = JSON.parse(localStorage.getItem("builds")) || [];
-
-                    savedBuilds.push({
-                        name: buildName,
-                        details: resultText.replace(/<br>/g, "\n")
-                    });
-
-                    localStorage.setItem("builds", JSON.stringify(savedBuilds));
-
-                    displaySavedBuilds();
-
-                    document.getElementById("buildName").value = "";
-                    document.getElementById("saveForm").classList.add("hidden");
-                }
-            } else {
-                alert("يرجى إدخال اسم للتجميعه.");
-            }
-            function saveBuild() {
+function saveBuildName() {
     var buildName = document.getElementById("buildName").value;
     if (buildName) {
-        var resultText = document.getElementById("result").innerHTML;
+        var savedBuilds = JSON.parse(localStorage.getItem("builds")) || [];
+        var buildDetails = "تفاصيل التجميعة هنا"; 
 
-        if (resultText.trim()) {
-            var savedBuilds = JSON.parse(localStorage.getItem("builds")) || [];
+        savedBuilds.push({
+            name: buildName,
+            details: buildDetails
+        });
 
-            var totalPrice = resultText.match(/التكلفة الإجمالية: (\d+(\.\d+)?) ريال/)[1];
+        localStorage.setItem("builds", JSON.stringify(savedBuilds));
 
-            savedBuilds.push({
-                name: buildName,
-                details: resultText.replace(/<br>/g, "\n"),
-                totalPrice: totalPrice
-            });
+      
+        displaySavedBuilds();
+        closeAllPopups();
 
-            localStorage.setItem("builds", JSON.stringify(savedBuilds));
-
-            displaySavedBuilds();
-
-            document.getElementById("buildName").value = "";
-            document.getElementById("saveForm").classList.add("hidden");
-        }
+        document.getElementById("saveForm").classList.add("hidden");
+        document.getElementById("buildName").value = ""; 
     } else {
-        alert("يرجى إدخال اسم للتجميعه.");
+        alert("يرجى إدخال اسم للتجميعة.");
     }
 }
-        }
 
-        function displaySavedBuilds() {
-            var savedBuilds = JSON.parse(localStorage.getItem("builds")) || [];
-            var savedBuildsContainer = document.getElementById("savedBuilds");
-            savedBuildsContainer.innerHTML = "";
 
-            savedBuilds.forEach(function(build, index) {
-                var listItem = document.createElement("li");
-                listItem.innerHTML = `
-                    <strong>${build.name}:</strong><br>${build.details.replace(/\n/g, "<br>")}
-                    <div class="build-controls">
-                        <button onclick="editBuild(${index})">تعديل</button>
-                        <button onclick="deleteBuild(${index})">حذف</button>
-                    </div>
-                `;
-                savedBuildsContainer.appendChild(listItem);
-            });
-        }
-function editBuild(index) {
-            var savedBuilds = JSON.parse(localStorage.getItem("builds")) || [];
-            var build = savedBuilds[index];
 
-            var buildDetails = build.details.split("\n");
-            var componentPrices = {};
-
-            buildDetails.forEach(function(detail) {
-                var parts = detail.split(":");
-                if (parts.length === 2) {
-                    var component = parts[0].trim();
-                    var price = parseFloat(parts[1].replace("ريال", "").replace("(تم التعديل)", "").trim());
-                    componentPrices[component] = price;
-                }
-            });
-
-            document.getElementById("totalAmount").value = "";
-            document.getElementById("cpuPrice").value = componentPrices["المعالج"] || "";
-            document.getElementById("coolerPrice").value = componentPrices["المبرد"] || "";
-            document.getElementById("motherboardPrice").value = componentPrices["اللوحة الأم"] || "";
-            document.getElementById("gpuPrice").value = componentPrices["بطاقة الرسوميات"] || "";
-            document.getElementById("ramPrice").value = componentPrices["الذاكرة"] || "";
-            document.getElementById("ssdPrice").value = componentPrices["التخزين"] || "";
-            document.getElementById("psuPrice").value = componentPrices["مزود الطاقة"] || "";
-            document.getElementById("casePrice").value = componentPrices["الصندوق"] || "";
-
-            deleteBuild(index);
-        }
-
-        function deleteBuild(index) {
-            var savedBuilds = JSON.parse(localStorage.getItem("builds")) || [];
-            savedBuilds.splice(index, 1);
-            localStorage.setItem("builds", JSON.stringify(savedBuilds));
-            displaySavedBuilds();
-        }
+window.onload = function() {
+    displaySavedBuilds();
+};
 
         function showSaveForm() {
             document.getElementById("saveForm").classList.remove("hidden");
@@ -700,9 +992,6 @@ function updateCasePrice() {
     var casePrice = document.getElementById("casePrice");
     casePrice.value = caseSelect.value;
 }
-    </script>
-    
-    <script>
     function autoSelectComponents() {
         var totalAmount = document.getElementById("totalAmount").value;
         if (totalAmount) {
@@ -772,8 +1061,147 @@ function getRamType(motherboard) {
     if (motherboard.includes("DDR5")) return "DDR5";
     return "";
 }
+        function toggleMenu() {
+    const menuButton = document.querySelector('.menu-button');
+    const menuContent = document.getElementById("myMenu");    
+    menuButton.classList.toggle("active");
+    menuContent.classList.toggle("show");    
+    menuButton.classList.toggle('move-out');
+    const container = document.querySelector('.container');
+    container.classList.toggle('menu-open');
+}
 
-    </script>
-    
+        
+        window.onclick = function(event) {
+            if (!event.target.matches('.menu-button') && !event.target.matches('.hamburger-line')) {
+                const menuButton = document.querySelector('.menu-button');
+                const menuContent = document.getElementById("myMenu");
+                if (menuContent.classList.contains('show')) {
+                    menuButton.classList.remove("active");
+                    menuContent.classList.remove("show");
+                    const container = document.querySelector('.container');
+                    container.classList.toggle('menu-open');
+                    menuButton.classList.toggle('move-out');
+                }
+            }
+        }
+        </script>
+                <div id="popupOverlay" class="overlay hidden"></div>
+<div id="popup" class="popup hidden">
+    <h2>اسم التجميعة</h2>
+    <input type="text" id="buildName" placeholder="أدخل اسم التجميعة">
+    <button onclick="saveBuild()">حفظ</button>
+</div>  
+<div id="references">
+            <ul>
+                <li>متاجر <br><a href="https://www.amazon.sa" target="_blank">امازون</a>
+                   - <a href="https://www.newegg.com/global/sa-en/" target="_blank">نيو ايج</a>
+                   - <a href="https://pcd.com.sa/product-category/computer-parts" target="_blank">طبيب الكمبيوتر</a>
+                   - <a href="https://www.aliexpress.com" target="_blank">علي اكسبرس</a>
+                   - <a href="https://www.trendyol.com/ar/sr?wc=103662" target="_blank">ترنديول</a>
+                </li>
+                <li> قائمة افضل القطع <br>
+                      <a href="https://cultists.network/140/psu-tier-list/" target="_blank">باور سبلاي</a>
+                    - <a href="https://www.cpubenchmark.net/cpu_list.php" target="_blank">معالج</a>
+                    - <a href="https://gpu.userbenchmark.com/" target="_blank">كرت الشاشة</a></li>
+            </ul>
+        </div>  
+    <div id="savedBuildsPopup" class="saved-builds-popup hidden">
+  <h2>التجميعات المحفوظة</h2>
+  <div id="savedBuildsList"></div>
+</div>
+        <script>
+let savedBuilds = [];
+
+function showPopup() {
+    document.getElementById('popupOverlay').classList.remove('hidden');
+    document.getElementById('popup').classList.remove('hidden');
+}
+
+function resetForm() {
+    document.getElementById('buildName').value = '';
+    document.getElementById('totalBudget').value = '';
+    document.getElementById('cpuSelect').value = '';
+    document.getElementById('coolerSelect').value = '';
+    document.getElementById('motherboardSelect').value = '';
+    document.getElementById('gpuSelect').value = '';
+    document.getElementById('ramSelect').value = '';
+    document.getElementById('storageSelect').value = '';
+    document.getElementById('additionalStorageSelect').value = '';
+    document.getElementById('psuSelect').value = '';
+    document.getElementById('caseSelect').value = '';
+    document.getElementById('cpuPrice').value = '';
+    document.getElementById('coolerPrice').value = '';
+    document.getElementById('motherboardPrice').value = '';
+    document.getElementById('gpuPrice').value = '';
+    document.getElementById('ramPrice').value = '';
+    document.getElementById('storagePrice').value = '';
+    document.getElementById('additionalStoragePrice').value = '';
+    document.getElementById('psuPrice').value = '';
+    document.getElementById('casePrice').value = '';
+}
+
+
+function getBuildDetails() {
+    var details = [];
+
+    if (document.getElementById("cpuSelect").value) {
+        details.push(`المعالج: ${document.getElementById('cpuSelect').options[document.getElementById('cpuSelect').selectedIndex].text} (${document.getElementById('cpuPrice').value} ريال)`);
+    }
+    if (document.getElementById("coolerSelect").value) {
+        details.push(`المبرد: ${document.getElementById('coolerSelect').options[document.getElementById('coolerSelect').selectedIndex].text} (${document.getElementById('coolerPrice').value} ريال)`);
+    }
+    if (document.getElementById("motherboardSelect").value) {
+        details.push(`اللوحة الأم: ${document.getElementById('motherboardSelect').options[document.getElementById('motherboardSelect').selectedIndex].text} (${document.getElementById('motherboardPrice').value} ريال)`);
+    }
+    if (document.getElementById("gpuSelect").value) {
+        details.push(`بطاقة الرسوميات: ${document.getElementById('gpuSelect').options[document.getElementById('gpuSelect').selectedIndex].text} (${document.getElementById('gpuPrice').value} ريال)`);
+    }
+    if (document.getElementById("ramSelect").value) {
+        details.push(`الذاكرة: ${document.getElementById('ramSelect').options[document.getElementById('ramSelect').selectedIndex].text} (${document.getElementById('ramPrice').value} ريال)`);
+    }
+    if (document.getElementById("ssdSelect").value) {
+        details.push(`التخزين: ${document.getElementById('ssdSelect').options[document.getElementById('ssdSelect').selectedIndex].text} (${document.getElementById('ssdPrice').value} ريال)`);
+    }
+    if (document.getElementById("ssdpSelect").value) {
+        details.push(`التخزين الإضافي: ${document.getElementById('ssdpSelect').options[document.getElementById('ssdpSelect').selectedIndex].text} (${document.getElementById('ssdpPrice').value} ريال)`);
+    }
+    if (document.getElementById("psuSelect").value) {
+        details.push(`مزود الطاقة: ${document.getElementById('psuSelect').options[document.getElementById('psuSelect').selectedIndex].text} (${document.getElementById('psuPrice').value} ريال)`);
+    }
+    if (document.getElementById("caseSelect").value) {
+        details.push(`الصندوق: ${document.getElementById('caseSelect').options[document.getElementById('caseSelect').selectedIndex].text} (${document.getElementById('casePrice').value} ريال)`);
+    }
+
+    return details.join("\n"); 
+}
+
+
+window.onclick = function(event) {
+    var overlay = document.getElementById('popupOverlay');
+    if (event.target === overlay) {
+        closeAllPopups(); 
+    }
+};
+
+
+function updateSavedBuildsList() {
+    const list = document.getElementById('savedBuildsList');
+    list.innerHTML = '';
+    savedBuilds.forEach((build, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${build.name} - ${build.date}`;
+        list.appendChild(li);
+    });
+}
+
+function saveBuildsTolocalStorage() {
+    let savedBuilds = JSON.parse(localStorage.getItem('savedBuilds')) || [];
+
+window.onload = function() {
+    displaySavedBuilds();
+};
+}
+        </script>
 </body>
 </html>
