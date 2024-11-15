@@ -816,15 +816,15 @@ function calculatePrice() {
     };
 
     var adjustedPrices = {
-        "المعالج": parseFloat(document.getElementById("cpuPrice").value) || 0,
-        "المبرد": parseFloat(document.getElementById("coolerPrice").value) || 0,
-        "اللوحة الأم": parseFloat(document.getElementById("motherboardPrice").value) || 0,
-        "بطاقة الرسوميات": parseFloat(document.getElementById("gpuPrice").value) || 0,
-        "الذاكرة": parseFloat(document.getElementById("ramPrice").value) || 0,
-        "التخزين": parseFloat(document.getElementById("ssdPrice").value) || 0,
-        "التخزين الإضافي": parseFloat(document.getElementById("ssdpPrice").value) || 0,
-        "مزود الطاقة": parseFloat(document.getElementById("psuPrice").value) || 0,
-        "الصندوق": parseFloat(document.getElementById("casePrice").value) || 0
+        "المعالج": Math.max(0, parseFloat(document.getElementById("cpuPrice").value) || 0),
+        "المبرد": Math.max(0, parseFloat(document.getElementById("coolerPrice").value) || 0),
+        "اللوحة الأم": Math.max(0, parseFloat(document.getElementById("motherboardPrice").value) || 0),
+        "بطاقة الرسوميات": Math.max(0, parseFloat(document.getElementById("gpuPrice").value) || 0),
+        "الذاكرة": Math.max(0, parseFloat(document.getElementById("ramPrice").value) || 0),
+        "التخزين": Math.max(0, parseFloat(document.getElementById("ssdPrice").value) || 0),
+        "التخزين الإضافي": Math.max(0, parseFloat(document.getElementById("ssdpPrice").value) || 0),
+        "مزود الطاقة": Math.max(0, parseFloat(document.getElementById("psuPrice").value) || 0),
+        "الصندوق": Math.max(0, parseFloat(document.getElementById("casePrice").value) || 0)
     };
 
     var selectedComponents = {
@@ -856,21 +856,12 @@ function calculatePrice() {
 
         if (adjustedPrices[component]) {
             price = adjustedPrices[component];
-
-            if (manualEdit[component]) {
-                resultHTML += `<div class='result-row'>
-                    <div class='component-name'>${componentName}</div>
-                    <div class='component-price'>${price.toFixed(2)} ريال (تم التعديل)</div>
-                </div>`;
-            } else {
-                resultHTML += `<div class='result-row'>
-                    <div class='component-name'>${componentName}</div>
-                    <div class='component-price'>${price.toFixed(2)} ريال</div>
-                </div>`;
-            }
-
+            resultHTML += `<div class='result-row'>
+                <div class='component-name'>${componentName}</div>
+                <div class='component-price'>${price.toFixed(2)} ريال</div>
+            </div>`;
         } else {
-            var calculatedPrice = ((totalAmount - totalAdjusted) * (percentages[component] / totalPercentage));
+            var calculatedPrice = Math.max(0, (totalAmount - totalAdjusted) * (percentages[component] / totalPercentage));
             resultHTML += `<div class='result-row'>
                 <div class='component-name'>${componentName}</div>
                 <div class='component-price'>${calculatedPrice.toFixed(2)} ريال</div>
@@ -878,24 +869,17 @@ function calculatePrice() {
         }
     }
 
-
     var totalCost = totalAdjusted;
 
     for (var component in percentages) {
         if (adjustedPrices[component] <= 0) { 
-            totalCost += ((totalAmount - totalAdjusted) * (percentages[component] / totalPercentage));
+            totalCost += Math.max(0, (totalAmount - totalAdjusted) * (percentages[component] / totalPercentage));
         }
     }
 
     resultHTML += `<div class='total-cost'>التكلفة الإجمالية: ${totalCost.toFixed(2)} ريال</div>`;
     document.getElementById("result").innerHTML = resultHTML;
 }
-
-
-
-
-
-
 
         function copyResult() {
             var resultText = document.getElementById("result").innerText;
